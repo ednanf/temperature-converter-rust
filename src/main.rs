@@ -1,9 +1,9 @@
-use std::{io, num};
+use std::io;
 
 fn main() {
     println!("Temperature converter");
     loop {
-        println!("Choose conversion type: 1. [C->F] or 2. [F->C]");
+        println!("Choose conversion type: [1] °C->°F [2] °F->°C [3] Quit and presse [enter]");
         let mut conversion_type = String::new();
         io::stdin()
             .read_line(&mut conversion_type)
@@ -12,13 +12,43 @@ fn main() {
             Ok(num) => num,
             Err(_) => continue,
         };
-
+        let mut input_temperature = String::new();
         if conversion_type == 1 {
-            println!("chose number 1")
+            println!("You chose to convert Celsius to Fahrenheit.");
+            println!("Please input the temperature in Celsius and press [enter]");
+            io::stdin()
+                .read_line(&mut input_temperature)
+                .expect("Error reading input!");
+            let temp_in_float: f64 = match input_temperature.trim().parse() {
+                Ok(v) => v,
+                Err(_) => 0.0,
+            };
+            let converted_temperature = c_to_f(temp_in_float);
+            println!("The converted temperature is: {converted_temperature}°C.")
         } else if conversion_type == 2 {
-            println!("chose number 2")
+            println!("You chose to convert Fahrenheit to Celsius.");
+            println!("Please [input] the temperature in Fahrenheit and press [enter]");
+            io::stdin()
+                .read_line(&mut input_temperature)
+                .expect("Error reading input!");
+            let temp_in_float: f64 = match input_temperature.trim().parse() {
+                Ok(v) => v,
+                Err(_) => 0.0,
+            };
+            let converted_temperature = f_to_c(temp_in_float);
+            println!("The converted temperature is: {converted_temperature}°F")
+        } else if conversion_type == 3 {
+            break;
         } else {
-            println!("Please choose option 1 or 2!")
+            println!("Please choose options [1], [2] or [3]")
         }
     }
+}
+
+fn c_to_f(temperature: f64) -> f64 {
+    temperature * 9.0 / 5.0 + 32.0
+}
+
+fn f_to_c(temperature: f64) -> f64 {
+    temperature - 32.0 * 5.0 / 9.0
 }
