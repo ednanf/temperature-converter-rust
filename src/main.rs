@@ -3,7 +3,9 @@ use std::io;
 fn main() {
     println!("========Temperature converter========");
     loop {
-        println!("Choose conversion type: [1] °C->°F [2] °F->°C [3] Quit and press [enter]");
+        println!(
+            "Choose conversion type: [1] °C->°F [2] °F->°C [3] Quit. Press [enter] to confirm."
+        );
         let mut conversion_type = String::new();
         io::stdin()
             .read_line(&mut conversion_type)
@@ -15,7 +17,7 @@ fn main() {
         let mut input_temperature = String::new();
         if conversion_type == 1 {
             println!("You chose to convert Celsius to Fahrenheit.");
-            println!("Please input the temperature in *Celsius* and press [enter]");
+            println!("Please input the temperature in *Celsius* and press [enter].");
             io::stdin()
                 .read_line(&mut input_temperature)
                 .expect("Error reading input!");
@@ -28,7 +30,7 @@ fn main() {
             println!("=====================================")
         } else if conversion_type == 2 {
             println!("You chose to convert Fahrenheit to Celsius.");
-            println!("Please input the temperature in *Fahrenheit* and press [enter]");
+            println!("Please input the temperature in *Fahrenheit* and press [enter].");
             io::stdin()
                 .read_line(&mut input_temperature)
                 .expect("Error reading input!");
@@ -37,7 +39,7 @@ fn main() {
                 Err(_) => 0.0,
             };
             let converted_temperature = f_to_c(temp_in_float);
-            println!("The converted temperature is: {converted_temperature}°C");
+            println!("The converted temperature is: {converted_temperature}°C.");
             println!("=====================================")
         } else if conversion_type == 3 {
             break;
